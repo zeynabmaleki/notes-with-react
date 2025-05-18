@@ -1,15 +1,19 @@
 import { useState, useEffect } from 'react';
-import './css/App.css';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import NoteList from './components/NoteList';
-import TodoList from './components/TodoList';
-import { Routes, Route } from 'react-router-dom';
+import Deleted from './components/Deleted';
+import AddNote from './components/AddNote';
 import '@fortawesome/fontawesome-free/css/all.css';
 
 const images = Object.values(import.meta.glob('./backgrounds/*.{png,jpg,jpeg,svg}', { eager: true }));
 
 function App() {
   const [backgroundImage, setBackgroundImage] = useState('');
+  const [note, setNote] = useState([]);
+  const [deleted, setDeleted] = useState([]);
+  const location = useLocation();
+
 
   useEffect(() => {
     const changeBackground = () => {
@@ -21,34 +25,53 @@ function App() {
         setBackgroundImage(img.src);
       };
     };
-
     const intervalId = setInterval(changeBackground, 10000);
-
     changeBackground();
-
     return () => clearInterval(intervalId);
   }, []);
 
+  // Load notes from localStorage on app start
+  useEffect(() => {
+    const savedNotes = JSON.parse(localStorage.getItem('note')) || [];
+    console.log('Loaded notes from localStorage:', savedNotes); // Debugging log
+    setNote(savedNotes);
+  }, []);
+
+  function loadingData(newList) {
+    console.log('Saving to localStorage:', newList); // Debugging log
+    localStorage.setItem('note', JSON.stringify(newList));
+  }
+
+  const handleAddNote = (newNote) => {
+    console.log('Adding new note:', newNote); // Debugging log
+    const newNoteList = [...note, newNote];
+    setNote(newNoteList);
+    loadingData(newNoteList);
+  };
+
   return (
-    <>
-      <div
-        className="flex flex-col h-[100vh] shadow-neomorphism p-6 bg-cover bg-center transition-all duration-1000 ease-in-out"
-        style={{
-          backgroundImage: `url(${backgroundImage})`,
-        }}
-      >
-        {/* Navbar and Routed Components in the Same Div */}
-        <div className="flex flex-col flex-grow mx-50 my-5 bg-white/30 backdrop-blur-sm shadow-lg rounded-lg p-4">
-          <Navbar />
-          <div className="flex-grow overflow-y-auto">
-            <Routes>
-              <Route path="/" element={<NoteList />} />
-              <Route path="/todos" element={<TodoList />} />
-            </Routes>
-          </div>
-        </div>
+    <div
+      className="flex items-center justify-center h-screen bg-gray-100 overflow-hidden"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
+      <div className="w-full max-w-3xl h-[85%] bg-white/30 backdrop-blur-md shadow-lg rounded-lg p-6 flex flex-col">
+        {/* Conditionally render Navbar */}
+        {['/', '/Deleted'].includes(location.pathname) && <Navbar />}
+        <main className="flex-grow overflow-hidden">
+          <Routes>
+            <Route path="/" element={<NoteList note={note} />} />
+            <Route path="/Deleted" element={
+              deleted.length === 0 ? <p>There are no deleted notes</p> : <Deleted deleted={deleted} />
+            } />
+            <Route path="/add-note" element={<AddNote handleAddNote={handleAddNote} />} />
+          </Routes>
+        </main>
       </div>
-    </>
+    </div>
   );
 }
 

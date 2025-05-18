@@ -1,41 +1,34 @@
 import React from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
-import NoteList from './NoteList';
-import TodoList from './TodoList';
+import { Link } from 'react-router-dom';
 
 export default function Navbar() {
     return (
-        <div className="bg-white/30 backdrop-blur-md shadow-lg rounded-lg p-4 flex flex-col">
-            {/* Navigation Bar */}
-            <div className="flex justify-between items-center">
-                {/* Navigation Links */}
-                <div className="flex space-x-4">
-                    <Link to="/" className="text-blue-500 hover:underline">
-                        Notes
-                    </Link>
-                    <span className="text-gray-500">|</span>
-                    <Link to="/todos" className="text-blue-500 hover:underline">
-                        Todos
-                    </Link>
-                </div>
-
-                {/* Search and Add Section */}
-                <div className="flex items-center space-x-4">
-                    <div className="flex items-center bg-white/40 backdrop-blur-md rounded-full px-4 py-2 shadow-inner">
-                        <input
-                            type="text"
-                            placeholder="Search..."
-                            className="bg-transparent outline-none text-gray-700 placeholder-gray-500 w-full"
-                        />
-                        <i className="fa-solid fa-magnifying-glass text-gray-600"></i>
-                    </div>
-                    <button className="bg-blue-500 text-white w-10 h-10 flex items-center justify-center rounded-full shadow-md hover:bg-blue-600 transition">
-                        <i className="fa-solid fa-plus"></i>
-                    </button>
-                </div>
+        <div className="bg-white/20 backdrop-blur-md shadow-md rounded-lg py-3 px-6 flex justify-between items-center">
+            {/* Navigation Links */}
+            <div className="flex space-x-6">
+                <Link
+                    to="/"
+                    className="text-blue-600 font-medium hover:text-blue-800 hover:scale-105 transition-transform"
+                >
+                    All
+                </Link>
+                <Link
+                    to="/Deleted"
+                    className="text-blue-600 font-medium hover:text-blue-800 hover:scale-105 transition-transform"
+                >
+                    Deleted
+                </Link>
             </div>
 
-
+            {/* Search Section */}
+            <div className="flex items-center bg-gray-100/50 rounded-full px-4 py-2 shadow-inner">
+                <input
+                    type="text"
+                    placeholder="Search..."
+                    className="bg-transparent outline-none text-gray-700 placeholder-gray-500 w-full"
+                />
+                <i className="fa-solid fa-magnifying-glass text-gray-600"></i>
+            </div>
         </div>
     );
 }
