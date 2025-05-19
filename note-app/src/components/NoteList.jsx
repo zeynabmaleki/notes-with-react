@@ -2,21 +2,26 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import NoteCard from './NoteCard.jsx';
 
-export default function NoteList({ note }) {
+export default function NoteList(props) {
+    const { note, handleDeleteNote, handleEditNote, searchQuery } = props
     const navigate = useNavigate();
 
     return (
         <div className="flex flex-col h-full relative">
             <div className="flex-grow overflow-y-auto p-4">
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-4 ">
                     {note.length === 0 ? (
-                        <p className="text-gray-500 text-center">No Notes Yet</p>
+                        <p className="text-black text-center py-20">
+                            {searchQuery.trim() ? 'No result' : 'No Notes Yet'}
+                        </p>
                     ) : (
                         note.map((noteItem, index) => (
                             <NoteCard
                                 key={index}
-                                title={noteItem.title} // Pass title as a prop
-                                content={noteItem.content} // Pass content as a prop
+                                title={noteItem.title}
+                                content={noteItem.content}
+                                handleDeleteNote={() => handleDeleteNote(index)}
+                                handleEditNote={() => handleEditNote(index)}
                             />
                         ))
                     )}
