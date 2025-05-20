@@ -42,7 +42,7 @@ Take notes, edit, delete, and restore them with ease! 🌟
 
 | Main Page | Deleted Notes | Search Note | Edit Note |
 |-----------|---------------|--------------|--------------|
-| ![Main](./screenshots/Screenshot 2025-05-20 132733.png) | ![Deleted](./screenshots/Screenshot 2025-05-20 132926.png) | ![Search](./screenshots/Screenshot 2025-05-20 133005.png) |![Edit](./screenshots/Screenshot 2025-05-20 133141.png) |
+| ![Main](./screenshots/main.png) | ![Deleted](./screenshots/deleted.png) | ![Search](./screenshots/search.png) |![Edit](./screenshots/edit.png) |
 
 ---
 
