@@ -6,6 +6,12 @@ Take notes, edit, delete, and restore them with ease! 🌟
 
 ---
 
+## 🌐 Live Demo
+
+👉 [Try Notes With React Online!](https://noteswithreactjs.netlify.app)
+
+---
+
 ## ✨ Features
 
 - 🖊️ **Add Notes** — Quickly jot down your thoughts.
